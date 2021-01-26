@@ -1,31 +1,31 @@
 <?php
 
-// POSTƒpƒ‰ƒ[ƒ^•ÒW
+// POSTãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ç·¨é›†
 $postParam = "test";
 $sendParameters = array(
 
     'postParam'    => $postParam,
 );
 
-// ˆ¶æ•ÒW
-$url = "";
+// å®›å…ˆç·¨é›†
+$url = "172.17.57.114:8080";
 
-// cURL‰Šú‰»
+// cURLåˆæœŸåŒ–
 $ch = curl_init();
 
-// cURLƒIƒvƒVƒ‡ƒ“İ’è
+// cURLã‚ªãƒ—ã‚·ãƒ§ãƒ³è¨­å®š
 curl_setopt($ch, CURLOPT_URL, $url);
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_TIMEOUT, 10);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $sendParameters);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-// cURLÀs
+// cURLå®Ÿè¡Œ
 $errorCode      = curl_exec($ch);
 $cURLerrorNum   = curl_errno($ch);
 $cURLerrorMsg   = curl_error($ch);
 
-// cURLƒNƒ[ƒY
+// cURLã‚¯ãƒ­ãƒ¼ã‚º
 curl_close($ch);
 
 echo $errorCode;
