@@ -28,5 +28,4 @@ $cURLerrorMsg   = curl_error($ch);
 
 // cURLクローズ
 curl_close($ch);
-
 echo $errorCode . PHP_EOL;
