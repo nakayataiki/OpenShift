@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1.0" />
+        <title>FileAPI on EOV</title>
+        <style>
+            label > input {
+                display:none; /* ファイル選択ボタンのスタイルを無効にする */
+            }
+            label {
+                color: #fff; /* ラベルテキストの色を指定する */
+                background-color: blue;/* ラベルの背景色を指定する */
+                padding: 10px; /* ラベルとテキスト間の余白を指定する */
+                border: outset;/* ラベルのボーダーを指定する */
+            }
+        </style>
+        <p>API テスト</p>
+        <label>
+            ajax実行
+            <input type="button" id="button">
+        </label>
+        <br>
+        <br>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <script>
+            
+            $('button').click(function() {
+                
+                console.log('クリックされました！');
+                
+                var url = "https://dev-ws.indv.jp/1279/image/ekyc";
+                
+                
+                // POSTデータ設定
+                var sendParameters = {
+                    
+                    "param" : "aaa"
+                    
+                }
+                // ajax でアップロード
+                $.ajax({
+                    
+                    url: url,
+                    method:'POST',
+                    data: sendParameters,
+                    timeout:10000
+                })
+                .done(function( data, textStatus, jqXHR ) {
+                    
+                    // 送信成功
+                    alert("通信成功");
+                    console.log(data);
+                })
+                .fail(function( jqXHR, textStatus, errorThrown ) {
+                    
+                    // 送信失敗
+                    alert("通信失敗");
+                });
+            });
+        </script>
+    </head>   
+    <body>
+    </body>
+</html>
