@@ -9,7 +9,7 @@ $sendParameters = array(
 
 // 宛先編集
 // $url = "172.17.57.114:8080";
-$url = "10.244.128.4:8080";
+$url = "172.17.57.114:8080/appost.php";
 
 // cURL初期化
 $ch = curl_init();
