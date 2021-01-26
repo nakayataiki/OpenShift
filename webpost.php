@@ -9,7 +9,8 @@ $sendParameters = array(
 
 // 宛先編集
 // $url = "172.17.57.114:8080";
-$url = "172.17.57.114:8080/appost.php";
+// $url = "172.17.57.114:8080/appost.php";
+$url = "open-shift-ap:8080/appost.php";
 
 // cURL初期化
 $ch = curl_init();
