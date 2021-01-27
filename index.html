@@ -29,7 +29,6 @@
                 
                 console.log('クリックされました！');
                 
-                //var url = "https://dev-ws.indv.jp/1279/image/ekyc";
                 var url = "./webpost.php";
                 
                 // POSTデータ設定
@@ -49,14 +48,14 @@
                 .done(function( data, textStatus, jqXHR ) {
                     
                     // 送信成功
-                    alert("通信成功");
+                    console.log("通信成功");
                     console.log(data);
                     
                 })
                 .fail(function( jqXHR, textStatus, errorThrown ) {
                     
                     // 送信失敗
-                    alert("通信失敗");
+                    console.log("通信失敗");
                 });
             });
         </script>
