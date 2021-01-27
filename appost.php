@@ -20,10 +20,11 @@ $ch = curl_init($url);
 
 // 転送用の様々なオプションを設定
 $headers = [
-    'Content-Type: application/x-www-form-urlencoded; charset=utf-8',
+    'Content-Type: application/json; charset=utf-8',
     'Authorization: Bearer ' . $accessKey
 ];
-
+echo $headers;
+return;
 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
 $result = curl_exec($ch);
