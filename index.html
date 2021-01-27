@@ -15,27 +15,233 @@
                 border: outset;/* ラベルのボーダーを指定する */
             }
         </style>
-        <p>API テスト</p>
+        <p>FileAPI テスト</p>
+        <!-- ファイル選択ボタン -->
         <label>
-            ajax実行
-            <input type="button" id="button">
+            カメラ起動
+            <input type="file" accept="image/*" id="camera" capture="camera">
         </label>
+        <!-- アップロードボタン -->
+        <label>
+            アップロード
+            <input type="button" id="upload">
+        </label>
+        
         <br>
         <br>
+        <!-- canvas（縮小した写真を貼り付け）をbase64に変換した値を退避させるエリア　※functionを跨ぐ変数の参照ができなかったため -->
+        <textarea id="base64" hidden>base64エリア（オリジナル）</textarea>
+        <!-- 縮小画像の表示領域 -->
+        <canvas id="canvas" width="0" height="0"></canvas>
+
+        <!-- 以下、JavaScript -->
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="./src/load-image.all.min.js"></script>
         <script>
             
-            $('#button').click(function() {
+            // シーン名取得
+            //var current_scene = hypeDocument.currentSceneName();
+            
+            // キャプチャータイプ取得（画像の識別情報）
+            //var captureType = istObj.Infos.captureType[current_scene];
+            
+            // canvasオブジェクト取得
+            //var cvs = document.getElementById("id_target_canvas_reg_" + captureType);
+            var cvs = document.getElementById("canvas");
+            var ctx = cvs.getContext('2d');
+            
+            var FORMATSIZE = 600;
+            
+            // 写真撮影後、関数（imageGetSimple）実行
+            //var event = document.getElementById( current_scene + "_camera");
+            var event = document.getElementById("camera");
+            
+            event.addEventListener('change', function imageGetSimple(e) {
                 
-                console.log('クリックされました！');
+                //$(".processing").show();
                 
-                var url = "./webpost.php";
+                var fileObject = e.target.files;
+                var readerObject = new FileReader();
+                
+                //console.log(readerObject);
+                
+                // 読み込み完了後の処理
+                readerObject.onload = function() {
+                    
+                    // 画像データをオブジェクトに格納
+                    loadImage.parseMetaData(fileObject[0], function (data) {
+					
+					//istObj.Infos.fileObjects[captureType] = {
+					//
+					//	"src"      : readerObject, 
+					//	"metaData" : data
+					//};
+            		//console.log(readerObject);
+                        var fileObjects = {
+                            
+                            "src"      : readerObject, 
+                            "metaData" : data
+                        };
+                        
+                        console.log(fileObjects);
+                        
+                        var imageObject	= new Image();
+                        
+                        //console.log(imageObject);
+                        
+                        //imageObject.src = istObj.Infos.fileObjects[captureType]["src"]["result"];
+                        imageObject.src = fileObjects["src"]["result"];
+                        
+                        imageObject.onload = function() {
+                            
+                            var displayWidth;
+                            var displayHeight;
+                            
+                            // 縮小
+                            if( Math.max( imageObject.width, imageObject.height ) > FORMATSIZE ) {
+                                
+                                // 横長
+                                if( imageObject.width >= imageObject.height ) {
+                                    
+                                    displayWidth = FORMATSIZE;
+                                    displayHeight = parseInt( imageObject.height * FORMATSIZE / imageObject.width );
+                                    
+                                } else {
+                                    
+                                    // 縦長
+                                    displayWidth = parseInt( imageObject.width * FORMATSIZE / imageObject.height );
+                                    displayHeight = FORMATSIZE;
+                                }
+                            
+                            } else {
+                                
+                                displayWidth = imageObject.width;
+                                displayHeight = imageObject.height;
+                            }
+                            
+                            var imageOrientation = 1;
+                            
+                            // Orientation情報取得
+                            //if (istObj.Infos.fileObjects[captureType].metaData.exif) {
+                            if ( fileObjects.metaData.exif) {
+                                
+                                //imageOrientation = istObj.Infos.fileObjects[captureType].metaData.exif.get( "Orientation" );
+                                imageOrientation = fileObjects.metaData.exif.get( "Orientation" );
+                            }
+                            
+                            // 回転だけ考慮
+                            switch (imageOrientation) {
+                                
+                                /*
+                                // 180
+                                case 3 :
+                                    cvs.width = displayWidth;
+                                    cvs.height = displayHeight;
+                                    ctx.clearRect(0, 0, FORMATSIZE, FORMATSIZE);
+                                    ctx.rotate( Math.PI );
+                                    ctx.drawImage( imageObject, - displayWidth, - displayHeight, displayWidth, displayHeight );
+                                    ctx.rotate( -Math.PI );
+                                    setTimeout(function() {
+
+                                        postImageData();
+
+                                    }, 0);
+                                    break;
+
+                                // 90
+                                case 6:
+                                    cvs.width = displayHeight;
+                                    cvs.height = displayWidth;
+                                    ctx.clearRect(0, 0, FORMATSIZE, FORMATSIZE);
+                                    ctx.rotate(  Math.PI * 0.5 );
+                                    ctx.drawImage( imageObject, 0, - displayHeight, displayWidth, displayHeight );
+                                    ctx.rotate( -Math.PI * 0.5 );
+                                    setTimeout(function() {
+
+                                        postImageData();
+
+                                    }, 0);
+                                    break;
+
+                                // 270
+                                case 8:
+                                    cvs.width = displayHeight;
+                                    cvs.height = displayWidth;
+                                    ctx.clearRect(0, 0, FORMATSIZE, FORMATSIZE);
+                                    ctx.rotate( -Math.PI * 0.5 );
+                                    ctx.drawImage( imageObject, - displayWidth, 0, displayWidth, displayHeight );
+                                    ctx.rotate(  Math.PI * 0.5 );
+                                    setTimeout(function() {
+
+                                        postImageData();
+
+                                    }, 0);
+                                    break;
+                                */
+                                default:
+                                    cvs.width = displayWidth;
+                                    cvs.height = displayHeight;
+                                    ctx.clearRect(0, 0, FORMATSIZE, FORMATSIZE);
+                                    
+                                    ctx.drawImage( imageObject, 0, 0, displayWidth, displayHeight );
+                                    
+                                    setTimeout(function() {
+                                        
+                                        postImageData();
+                                    
+                                    }, 0);
+								    break;
+                            }
+                        }
+                    })
+                }
+                // 読み込み
+                readerObject.readAsDataURL( fileObject[0] );
+            });
+            
+            // アップロードボタンがクリックされたら実行される関数
+            //$('#upload').click(function() {
+            
+            function postImageData() {
+                
+                return;
+                // hiddenのbase64エリアから情報取得（縮小した写真のbase64形式のデータ）
+                //var base64 = document.getElementById("base64").innerHTML;
+                var base64 = cvs.toDataURL('image/jpeg');
+                
+                var date1 = new Date();
+                
+                var yyyymmdd = date1.getFullYear() + ("00" + (date1.getMonth() + 1)).slice(-2) + ("00" + (date1.getDate())).slice(-2); 
+                var hhmmss = String(date1.getHours()) + String(date1.getMinutes()) + String(date1.getSeconds());
+                    
+                // 送信処理
+                // POSTデータ編集		
+                var campaignId  = "1279";
+                var uniqueId    = "token";
+                var date        = yyyymmdd;
+                var time        = hhmmss;
+                var image       = base64;
+                var fileSize    = base64.length;
+                var imageNum    = "1";
+                var random      = "0";
+                var retake      = "0";
+                
+                // var base_dir = istObj.Env.getBaseDir();
+                //var url = base_dir + '/' + campaignId + '/image/ekyc';
+                var url = "./imgpost.php";
                 
                 // POSTデータ設定
                 var sendParameters = {
                     
-                    "param" : "aaa"
-                    
+                    //campaignId  : campaignId,
+                    //uniqueId    : uniqueId,
+                    //date        : date,
+                    //time        : time,
+                    image       : image,
+                    //fileSize    : fileSize,
+                    //imageNum    : imageNum,
+                    //random      : random,
+                    //retake      : retake
                 }
                 // ajax でアップロード
                 $.ajax({
@@ -44,20 +250,20 @@
                     method:'POST',
                     data: sendParameters,
                     timeout:10000
+                    //timeout:1
                 })
                 .done(function( data, textStatus, jqXHR ) {
-                    
                     // 送信成功
-                    console.log("通信成功");
-                    console.log(data);
-                    
+                    alert("アップロードに成功しました。");
+//                  console.log(data);
                 })
                 .fail(function( jqXHR, textStatus, errorThrown ) {
-                    
                     // 送信失敗
-                    console.log("通信失敗");
+                    alert("アップロードに失敗しました。");
                 });
-            });
+            
+            }
+            //});
         </script>
     </head>   
     <body>
