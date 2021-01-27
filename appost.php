@@ -23,8 +23,6 @@ $headers = [
     'Content-Type: application/json; charset=utf-8',
     'Authorization: Bearer ' . $accessKey
 ];
-echo $headers;
-return;
 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
 $result = curl_exec($ch);
