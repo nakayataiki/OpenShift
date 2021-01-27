@@ -21,7 +21,7 @@ $ch = curl_init($url);
 // 転送用の様々なオプションを設定
 $headers = [
     'Content-Type: application/x-www-form-urlencoded; charset=utf-8',
-    'Authorization: Bearer ' . $accessKey;
+    'Authorization: Bearer ' . $accessKey
 ];
 
 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
