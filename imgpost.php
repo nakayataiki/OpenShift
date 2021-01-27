@@ -8,11 +8,9 @@ $sendParameters = array(
 );
 
 //$json_sendParameters = json_encode($sendParameters);
-
-// curlを�E期化
+$url = "172.17.45.36:8080;
 $ch = curl_init();
 
-// 設宁E
 curl_setopt($ch, CURLOPT_URL, $url);
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_TIMEOUT, 10);
