@@ -132,52 +132,6 @@
                             // 回転だけ考慮
                             switch (imageOrientation) {
                                 
-                                /*
-                                // 180
-                                case 3 :
-                                    cvs.width = displayWidth;
-                                    cvs.height = displayHeight;
-                                    ctx.clearRect(0, 0, FORMATSIZE, FORMATSIZE);
-                                    ctx.rotate( Math.PI );
-                                    ctx.drawImage( imageObject, - displayWidth, - displayHeight, displayWidth, displayHeight );
-                                    ctx.rotate( -Math.PI );
-                                    setTimeout(function() {
-
-                                        postImageData();
-
-                                    }, 0);
-                                    break;
-
-                                // 90
-                                case 6:
-                                    cvs.width = displayHeight;
-                                    cvs.height = displayWidth;
-                                    ctx.clearRect(0, 0, FORMATSIZE, FORMATSIZE);
-                                    ctx.rotate(  Math.PI * 0.5 );
-                                    ctx.drawImage( imageObject, 0, - displayHeight, displayWidth, displayHeight );
-                                    ctx.rotate( -Math.PI * 0.5 );
-                                    setTimeout(function() {
-
-                                        postImageData();
-
-                                    }, 0);
-                                    break;
-
-                                // 270
-                                case 8:
-                                    cvs.width = displayHeight;
-                                    cvs.height = displayWidth;
-                                    ctx.clearRect(0, 0, FORMATSIZE, FORMATSIZE);
-                                    ctx.rotate( -Math.PI * 0.5 );
-                                    ctx.drawImage( imageObject, - displayWidth, 0, displayWidth, displayHeight );
-                                    ctx.rotate(  Math.PI * 0.5 );
-                                    setTimeout(function() {
-
-                                        postImageData();
-
-                                    }, 0);
-                                    break;
-                                */
                                 default:
                                     cvs.width = displayWidth;
                                     cvs.height = displayHeight;
@@ -190,7 +144,7 @@
                                         postImageData();
                                     
                                     }, 0);
-								    break;
+				    break;
                             }
                         }
                     })
@@ -254,12 +208,12 @@
                 })
                 .done(function( data, textStatus, jqXHR ) {
                     // 送信成功
-                    alert("アップロードに成功しました。");
-//                  console.log(data);
+                    console.log("アップロードに成功しました。");
+                    console.log(data);
                 })
                 .fail(function( jqXHR, textStatus, errorThrown ) {
                     // 送信失敗
-                    alert("アップロードに失敗しました。");
+                    console.log("アップロードに失敗しました。");
                 });
             
             }
