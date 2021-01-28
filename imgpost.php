@@ -8,7 +8,7 @@ $sendParameters = array(
 );
 
 //$json_sendParameters = json_encode($sendParameters);
-$url = "172.17.45.36:8080;
+$url = "open-shift-ap:8080/appost.php";
 $ch = curl_init();
 
 curl_setopt($ch, CURLOPT_URL, $url);
