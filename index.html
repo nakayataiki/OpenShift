@@ -50,7 +50,7 @@
             var cvs = document.getElementById("canvas");
             var ctx = cvs.getContext('2d');
             
-            var FORMATSIZE = 600;
+            var FORMATSIZE = 1000;
             
             // 写真撮影後、関数（imageGetSimple）実行
             //var event = document.getElementById( current_scene + "_camera");
@@ -158,7 +158,6 @@
             
             function postImageData() {
                 
-                return;
                 // hiddenのbase64エリアから情報取得（縮小した写真のbase64形式のデータ）
                 //var base64 = document.getElementById("base64").innerHTML;
                 var base64 = cvs.toDataURL('image/jpeg');
