@@ -52,4 +52,5 @@ if (curl_errno($ch2)) {
 	echo 'Error:' . curl_error($ch2);
 	}
 curl_close($ch2);
-echo $result2 . PHP_EOL;
+$errcode = "00";
+echo $errcode . PHP_EOL;
