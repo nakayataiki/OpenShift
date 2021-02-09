@@ -3,14 +3,25 @@
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Origin, X-Requested-With");
 
+$ini = parse_ini_file('config.ini');
+/*
 $data = array(
 
         'apikey'        => 'ytQi1gPzzvb-V6JfsYKRqx7o9Jgv1QHbGkTPcn77QS1C',
         'response_type' => 'cloud_iam',
         'grant_type'    => 'urn:ibm:params:oauth:grant-type:apikey'
 );
+*/
+$data = array(
+
+        'apikey'        => $ini['apikey'],
+        'response_type' => $ini['response_type'],
+        'grant_type'    => $ini['grant_type']
+);
+
+
 $ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, 'https://iam.cloud.ibm.com/identity/token');
+curl_setopt($ch, CURLOPT_URL, $ini['token_url']);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_POST, 1);
 $headers = array();
@@ -38,7 +49,7 @@ $dirName = date('Ymd');
 $fileName = date('YmdHis');
 
 $ch2 = curl_init();
-curl_setopt($ch2, CURLOPT_URL, 'https://s3.direct.jp-tok.cloud-object-storage.appdomain.cloud/test-storage-cos-standard-qxx/' . $dirName . '/' . $fileName . '.jpeg');
+curl_setopt($ch2, CURLOPT_URL, $ini['bucket_url'] . $dirName . '/' . $fileName . '.jpeg');
 curl_setopt($ch2, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch2, CURLOPT_CUSTOMREQUEST, 'PUT');
 curl_setopt($ch2, CURLOPT_POSTFIELDS, $image);
