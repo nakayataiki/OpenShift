@@ -8,7 +8,7 @@ $sendParameters = array(
 );
 
 //$json_sendParameters = json_encode($sendParameters);
-$url = "open-shift-ap:8080/imgreg.php";
+$url = "ap-190125:8080/imgreg.php";
 $ch = curl_init();
 
 curl_setopt($ch, CURLOPT_URL, $url);
