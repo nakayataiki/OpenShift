@@ -6,7 +6,7 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With");
 $command = 'curl -X "POST" "https://iam.cloud.ibm.com/identity/token" \
 -H "Accept: application/json" \
 -H "Content-Type: application/x-www-form-urlencoded" \
---data-urlencode "apikey=kQex-7TslErv_GXgBiBIz5A8nbx9Dm-O8FdXPUhMi1h7" \
+--data-urlencode "apikey=SBYJpDrSjf2vIYkMEJmdgqI4vrBzIIwVvBxl-b6enBiH" \
 --data-urlencode "response_type=cloud_iam" \
 --data-urlencode "grant_type=urn:ibm:params:oauth:grant-type:apikey"';
 
@@ -27,7 +27,7 @@ $dirName = date('Ymd');
 $fileName = date('YmdHis');
 
 $ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, 'https://s3.direct.jp-tok.cloud-object-storage.appdomain.cloud/iseto-poc-bucket/' . $dirName . '/' . $fileName . '.jpeg');
+curl_setopt($ch, CURLOPT_URL, 'https://s3.direct.jp-tok.cloud-object-storage.appdomain.cloud/iseto-poc-openshift-test-cos-standard-t03/' . $dirName . '/' . $fileName . '.jpeg');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
 curl_setopt($ch, CURLOPT_POSTFIELDS, $image);
