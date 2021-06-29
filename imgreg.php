@@ -40,7 +40,8 @@ $dirName = date('Ymd');
 $fileName = date('YmdHis');
 
 $ch2 = curl_init();
-curl_setopt($ch2, CURLOPT_URL, $ini['bucket_url'] . $dirName . '/' . $fileName . '.jpeg');
+//curl_setopt($ch2, CURLOPT_URL, $ini['bucket_url'] . $dirName . '/' . $fileName . '.jpeg');
+curl_setopt($ch2, CURLOPT_URL, $ini['bucket_url']);
 curl_setopt($ch2, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch2, CURLOPT_CUSTOMREQUEST, 'PUT');
 curl_setopt($ch2, CURLOPT_POSTFIELDS, $image);
