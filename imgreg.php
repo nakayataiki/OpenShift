@@ -28,9 +28,12 @@ if (curl_errno($ch)) {
 curl_close($ch);
 $result_str = json_decode($result, true);
 
-$image = $_POST['image'];
+//$image = $_POST['image'];
+$image = file_get_contents('./test.txt');
+
 if(strstr($image, 'data:image/jpeg;base64,')) {
-	$headerlessimg = str_replace('data:image/jpeg;base64,', '', $image);
+	
+    $headerlessimg = str_replace('data:image/jpeg;base64,', '', $image);
 	$image = base64_decode($headerlessimg);
 }
 $dirName = date('Ymd');
