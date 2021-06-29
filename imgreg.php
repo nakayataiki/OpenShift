@@ -47,7 +47,7 @@ curl_setopt($ch2, CURLOPT_CUSTOMREQUEST, 'PUT');
 curl_setopt($ch2, CURLOPT_POSTFIELDS, $image);
 $headers = array();
 $headers[] = 'Authorization: bearer ' . $result_str["access_token"]; 
-//$headers[] = 'Content-Type: application/x-www-form-urlencoded';
+$headers[] = 'Content-Type: application/x-www-form-urlencoded';
 $headers[] = 'ibm-service-instance-id: ' . $ini['resource-instance-id'];
 curl_setopt($ch2, CURLOPT_HTTPHEADER, $headers);
 
