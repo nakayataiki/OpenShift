@@ -26,6 +26,9 @@ if (curl_errno($ch)) {
 	return;
 }
 curl_close($ch);
+
+var_dump($result);
+
 $result_str = json_decode($result, true);
 
 //$image = $_POST['image'];
@@ -48,7 +51,7 @@ curl_setopt($ch2, CURLOPT_POSTFIELDS, $image);
 $headers = array();
 $headers[] = 'Authorization: bearer ' . $result_str["access_token"]; 
 $headers[] = 'Content-Type: application/x-www-form-urlencoded';
-$headers[] = 'ibm-service-instance-id: ' . $ini['resource-instance-id'];
+$headers[] = 'ibm-service-instance-id:' . $ini['resource-instance-id'];
 curl_setopt($ch2, CURLOPT_HTTPHEADER, $headers);
 
 $result2 = curl_exec($ch2);
