@@ -57,5 +57,5 @@ if (curl_errno($ch2)) {
 	return;
 }
 curl_close($ch2);
-$errcode = "00";
-echo $errcode . PHP_EOL;
+//$errcode = "00";
+var_dump($result2);
